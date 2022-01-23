@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+// imports
+import React, { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
+// components
+import Nav from './components/Nav'
+import Footer from './components/Footer'
+// pages
+import Home from './pages/Home'
+import NASAList from './pages/NASAList.js'
+import About from './pages/About'
+import Giphy from './pages/Giphy'
+import StarShips from './pages/StarShips'
+// css
+import './App.css'
+// contexts
+import UserContext from './contexts/UserContext'
 
 function App() {
+  const [user, setUser] = useState('chris')
+  console.log('App', user)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <UserContext.Provider value={user}>
+        <Nav />
+
+        <Routes>
+        <Route path='/' element={<Home />} />
+          <Route path='nasalist' element={<NASAList />} />
+          <Route path='about' element={<About />} />
+          <Route path='giphy' element={<Giphy />} />
+          <Route path='starships' element={<StarShips />} />
+        </Routes>
+
+        <Footer />
+      </UserContext.Provider>
+
     </div>
   );
 }
 
-export default App;
+export default App
